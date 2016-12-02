@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var visualizer = require('./routes/visualizer');
 var terrain = require('./routes/terrain');
+var historygen = require('./routes/historygen');
 var users = require('./routes/users');
 
 var app = express();
@@ -28,6 +29,7 @@ app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use('/', index);
 app.use('/visualizer', visualizer);
 app.use('/terrain', terrain);
+app.use('/historygen', historygen);
 app.use('/users', users);
 
 // catch 404 and forward to error handler
