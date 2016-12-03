@@ -29,11 +29,12 @@ World.load = function() {
 	return [];
 };
 
-World.run = function (context) {
+World.run = function (canvas, context) {
     this.ctx = context;
+	this.canvas = canvas;
     this._previousElapsed = 0;
-
-    var p = this.load();
+    
+	var p = this.load();
     Promise.all(p).then(function (loaded) {
         this.init();
         window.requestAnimationFrame(this.tick);
@@ -44,7 +45,7 @@ World.tick = function (elapsed) {
     window.requestAnimationFrame(this.tick);
 
     // clear previous frame
-    this.ctx.clearRect(0, 0, 512, 512);
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     // compute delta time in seconds -- also cap it
     var delta = (elapsed - this._previousElapsed) / 1000.0;
@@ -60,6 +61,7 @@ World.update = function (delta) {};
 World.render = function () {};
 
 window.onload = function () {
+	var canvas = document.getElementById('world');
     var context = document.getElementById('world').getContext('2d');
-    World.run(context);
+    World.run(canvas, context);
 };
